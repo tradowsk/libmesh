@@ -103,7 +103,7 @@ int main (int argc, char** argv)
   // elements instead of the default QUAD4's we used in example 2
   // allow us to use higher-order approximation.
   MeshTools::Generation::build_square (mesh,
-                                       15, 15,
+                                       150, 150,
                                        -1., 1.,
                                        -1., 1.,
                                        QUAD9);

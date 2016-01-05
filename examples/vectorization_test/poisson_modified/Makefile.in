@@ -152,7 +152,7 @@ CONFIG_CLEAN_VPATH_FILES =
 @LIBMESH_PROF_MODE_TRUE@am__EXEEXT_4 = example-prof$(EXEEXT)
 @LIBMESH_OPROF_MODE_TRUE@am__EXEEXT_5 = example-oprof$(EXEEXT)
 am__example_dbg_SOURCES_DIST = poisson_modified.C exact_solution.C \
-	fe_shape_function.h run.sh
+	fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 am__objects_1 = example_dbg-poisson_modified.$(OBJEXT) \
 	example_dbg-exact_solution.$(OBJEXT)
 am__objects_2 = $(am__objects_1)
@@ -168,7 +168,7 @@ example_dbg_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(example_dbg_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am__example_devel_SOURCES_DIST = poisson_modified.C exact_solution.C \
-	fe_shape_function.h run.sh
+	fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 am__objects_3 = example_devel-poisson_modified.$(OBJEXT) \
 	example_devel-exact_solution.$(OBJEXT)
 am__objects_4 = $(am__objects_3)
@@ -181,7 +181,7 @@ example_devel_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(example_devel_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am__example_oprof_SOURCES_DIST = poisson_modified.C exact_solution.C \
-	fe_shape_function.h run.sh
+	fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 am__objects_5 = example_oprof-poisson_modified.$(OBJEXT) \
 	example_oprof-exact_solution.$(OBJEXT)
 am__objects_6 = $(am__objects_5)
@@ -194,7 +194,7 @@ example_oprof_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(example_oprof_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am__example_opt_SOURCES_DIST = poisson_modified.C exact_solution.C \
-	fe_shape_function.h run.sh
+	fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 am__objects_7 = example_opt-poisson_modified.$(OBJEXT) \
 	example_opt-exact_solution.$(OBJEXT)
 am__objects_8 = $(am__objects_7)
@@ -206,7 +206,7 @@ example_opt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(example_opt_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am__example_prof_SOURCES_DIST = poisson_modified.C exact_solution.C \
-	fe_shape_function.h run.sh
+	fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 am__objects_9 = example_prof-poisson_modified.$(OBJEXT) \
 	example_prof-exact_solution.$(OBJEXT)
 am__objects_10 = $(am__objects_9)
@@ -814,7 +814,7 @@ vtkversion = @vtkversion@
 example_name = poisson_modified
 check_SCRIPTS = run.sh
 install_dir = $(examples_install_path)/vectorization_test/poisson_modified
-data = poisson_modified.C exact_solution.C fe_shape_function.h run.sh
+data = poisson_modified.C exact_solution.C fe_shape_function_1d.h fe_shape_function_simplified.h run.sh
 sources = $(data) run.sh
 
 ######################################################################
