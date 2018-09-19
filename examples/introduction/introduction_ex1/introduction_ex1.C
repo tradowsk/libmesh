@@ -32,6 +32,7 @@
 #include "libmesh/libmesh.h"
 // Basic include files needed for the mesh functionality.
 #include "libmesh/mesh.h"
+#include "libmesh/face_quad4.h"
 
 // Bring in everything from the libMesh namespace
 using namespace libMesh;
@@ -45,54 +46,28 @@ int main (int argc, char ** argv)
   // finalized.
   LibMeshInit init (argc, argv);
 
-  // Check for proper usage. The program is designed to be run
-  // as follows:
-  // ./ex1 -d DIM input_mesh_name [-o output_mesh_name]
-  // where [output_mesh_name] is an optional parameter giving
-  // a filename to write the mesh into.
-  if (argc < 4)
-    {
-      // This handy function will print the file name, line number,
-      // specified message, and then throw an exception.
-      libmesh_error_msg("Usage: " << argv[0] << " -d 2 in.mesh [-o out.mesh]");
-    }
-
-  // Get the dimensionality of the mesh from argv[2]
-  const unsigned int dim = std::atoi(argv[2]);
-
-  // Skip higher-dimensional examples on a lower-dimensional libMesh build
-  libmesh_example_requires(dim <= LIBMESH_DIM, "2D/3D support");
-
   // Create a mesh, with dimension to be overridden later, on the
   // default MPI communicator.
   Mesh mesh(init.comm());
 
-  // We may need XDR support compiled in to read binary .xdr files
-  std::string input_filename = argv[3];
-#ifndef LIBMESH_HAVE_XDR
-  libmesh_example_requires(input_filename.rfind(".xdr") >=
-                           input_filename.size(), "XDR support");
-#endif
+  mesh.set_mesh_dimension(2);
 
-  // Read the input mesh.
-  mesh.read (argv[3]);
+  mesh.add_point( libMesh::Point(0.00112253, 0.699591, 0.00112253),0 );
+  mesh.add_point( libMesh::Point(0.00293634, 0.699591, 0.00137357),1 );
+  mesh.add_point( libMesh::Point(0.00315625, 0.699591, -4.2451e-17),2 );
+  mesh.add_point( libMesh::Point(0.0015875, 0.699591, -4.26432e-17),3 );
 
-  // Print information about the mesh to the screen.
-  mesh.print_info();
+  libMesh::Elem* elem = mesh.add_elem( new libMesh::Quad4 );
+  for (unsigned int n=0; n<4; n++)
+    elem->set_node(n) = mesh.node_ptr(n);
 
-  // Write the output mesh if the user specified an
-  // output file name.
-  if (argc >= 6 && std::string("-o") == argv[4])
-    {
-      // We may need XDR support compiled in to read binary .xdr files
-      std::string output_filename = argv[5];
-#ifndef LIBMESH_HAVE_XDR
-      libmesh_example_requires(output_filename.rfind(".xdr") >=
-                               output_filename.size(), "XDR support");
-#endif
+  mesh.prepare_for_use();
 
-      mesh.write (argv[5]);
-    }
+  libMesh::Point point(0.0030875,0.699591,-6.81488e-10);
+  
+  bool has_point = elem->contains_point(point,libMesh::TOLERANCE);
+  
+  std::cout <<"\n\n=================\n" <<"Elem contains point: " <<has_point <<std::endl;
 
   // All done.  libMesh objects are destroyed here.  Because the
   // LibMeshInit object was created first, its destruction occurs
